@@ -1,6 +1,5 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { dump } from 'js-yaml';
-import { RefreshCcw } from 'lucide-react';
 import { Switch } from '@headlessui/react';
 
 interface YamlOptions {
@@ -71,7 +70,7 @@ function App() {
     setError(null);
   };
 
-  const handleOptionChange = (key: keyof YamlOptions, value: any) => {
+  const handleOptionChange = (key: keyof YamlOptions, value: YamlOptions[keyof YamlOptions]) => {
     setOptions(prev => ({
       ...prev,
       [key]: value
@@ -83,50 +82,45 @@ function App() {
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-3xl font-bold text-gray-900">js-yaml Playground</h1>
-          <div className="flex gap-4">
-            <button
-              onClick={resetToDefault}
-              className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg shadow hover:bg-gray-50"
-            >
-              <RefreshCcw className="w-5 h-5" />
-              Reset
-            </button>
-          </div>
         </div>
 
         <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
           <h2 className="text-xl font-semibold mb-4">Options</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700">Indent</label>
+              <label htmlFor="indent" className="block text-sm font-medium text-gray-700">Indent</label>
               <input
+                id="indent"
                 type="number"
                 value={options.indent}
-                onChange={(e) => handleOptionChange('indent', parseInt(e.target.value))}
+                onChange={(e) => handleOptionChange('indent', Number.parseInt(e.target.value))}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Flow Level</label>
+              <label htmlFor="flowLevel" className="block text-sm font-medium text-gray-700">Flow Level</label>
               <input
+                id="flowLevel"
                 type="number"
                 value={options.flowLevel}
-                onChange={(e) => handleOptionChange('flowLevel', parseInt(e.target.value))}
+                onChange={(e) => handleOptionChange('flowLevel', Number.parseInt(e.target.value))}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Line Width</label>
+              <label htmlFor="lineWidth" className="block text-sm font-medium text-gray-700">Line Width</label>
               <input
+                id="lineWidth"
                 type="number"
                 value={options.lineWidth}
-                onChange={(e) => handleOptionChange('lineWidth', parseInt(e.target.value))}
+                onChange={(e) => handleOptionChange('lineWidth', Number.parseInt(e.target.value))}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Quoting Type</label>
+              <label htmlFor="quotingType" className="block text-sm font-medium text-gray-700">Quoting Type</label>
               <select
+                id="quotingType"
                 value={options.quotingType}
                 onChange={(e) => handleOptionChange('quotingType', e.target.value as "'" | '"')}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
